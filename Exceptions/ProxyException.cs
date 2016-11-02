@@ -24,7 +24,9 @@
  */
 
 using System;
+#if !NETCORE
 using System.Runtime.Serialization;
+#endif
 
 namespace Starksoft.Net.Proxy
 {
@@ -32,7 +34,9 @@ namespace Starksoft.Net.Proxy
     /// <summary>
     /// This exception is thrown when a general, unexpected proxy error.   
     /// </summary>
+#if !NETCORE
     [Serializable()]
+#endif
     public class ProxyException : Exception
     {
         /// <summary>
@@ -62,6 +66,7 @@ namespace Starksoft.Net.Proxy
         {
         }
 
+#if !NETCORE
         /// <summary>
         /// Constructor.
         /// </summary>
@@ -72,6 +77,7 @@ namespace Starksoft.Net.Proxy
             : base(info, context)
         {
         }
+#endif
     }
 
 }
