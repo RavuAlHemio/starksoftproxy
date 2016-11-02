@@ -376,14 +376,14 @@ namespace Starksoft.Net.Proxy
             // if the server does not accept any of our supported authenication methods then throw an error
             if (acceptedAuthMethod == SOCKS5_AUTH_METHOD_REPLY_NO_ACCEPTABLE_METHODS)
             {
-                _tcpClient.Close();
+                _tcpClient.Dispose();
                 throw new ProxyException("The proxy destination does not accept the supported proxy client authentication methods.");
             }
 
             // if the server accepts a username and password authentication and none is provided by the user then throw an error
             if (acceptedAuthMethod == SOCKS5_AUTH_METHOD_USERNAME_PASSWORD && _proxyAuthMethod == SocksAuthentication.None)
             {
-                _tcpClient.Close();
+                _tcpClient.Dispose();
                 throw new ProxyException("The proxy destination requires a username and password for authentication.");
             }
 
@@ -428,7 +428,7 @@ namespace Starksoft.Net.Proxy
 
                 if (crResponse[1] != 0)
                 {
-                    _tcpClient.Close();
+                    _tcpClient.Dispose();
                     throw new ProxyException("Proxy authentification failure!");
                 }
             }
