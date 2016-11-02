@@ -30,6 +30,7 @@ using System.Net.Sockets;
 using System.Globalization;
 using System.IO;
 using System.Threading;
+using System.Threading.Tasks;
 using System.ComponentModel;
 
 namespace Starksoft.Net.Proxy
@@ -255,7 +256,7 @@ namespace Starksoft.Net.Proxy
                     _tcpClient = new TcpClient();
 
                     // attempt to open the connection
-                    _tcpClient.Connect(_proxyHost, _proxyPort);
+                    _tcpClient.ConnectAsync(_proxyHost, _proxyPort).Wait();
                 }
 
                 //  send connection command to proxy host for the specified destination host and port
@@ -377,7 +378,9 @@ namespace Starksoft.Net.Proxy
             {
                 try
                 {
-                    ipAddr = Dns.GetHostEntry(destinationHost).AddressList[0];
+                    Task<IPHostEntry> resolveTask = Dns.GetHostEntryAsync(destinationHost);
+                    resolveTask.Wait();
+                    ipAddr = resolveTask.Result.AddressList[0];
                 }
                 catch (Exception ex)
                 {

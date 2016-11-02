@@ -219,7 +219,7 @@ namespace Starksoft.Net.Proxy
                     _tcpClient = new TcpClient();
 
                     // attempt to open the connection
-                    _tcpClient.Connect(_proxyHost, _proxyPort);
+                    _tcpClient.ConnectAsync(_proxyHost, _proxyPort).Wait();
                 }
 
                 //  send connection command to proxy host for the specified destination host and port

@@ -281,7 +281,7 @@ namespace Starksoft.Net.Proxy
                     _tcpClient = new TcpClient();
 
                     // attempt to open the connection
-                    _tcpClient.Connect(_proxyHost, _proxyPort);
+                    _tcpClient.ConnectAsync(_proxyHost, _proxyPort).Wait();
                 }
 
                 //  determine which authentication method the client would like to use
